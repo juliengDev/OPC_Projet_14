@@ -15,6 +15,7 @@ import {
   Button,
   Box,
 } from "@mui/material";
+import { useEmployee } from "../../contexts/EmployeeContext";
 
 function NewEmployeeForm() {
   const [birthDate, setBirthDate] = useState(null);
@@ -24,6 +25,7 @@ function NewEmployeeForm() {
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [department, setDepartment] = useState("");
+  const { createEmployee, employeeList } = useEmployee();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -36,8 +38,16 @@ function NewEmployeeForm() {
       city,
       department,
     };
-    console.log(newEmployee);
+    createEmployee(newEmployee);
+    setBirthDate(null);
+    setStartDate(null);
+    setFirstname("");
+    setLastName("");
+    setStreet("");
+    setCity("");
+    setDepartment("");
   }
+  console.log(employeeList);
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Container

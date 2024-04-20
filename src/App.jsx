@@ -3,6 +3,7 @@ import AppLayout from "./ui/AppLayout";
 import Error from "./ui/Error";
 import EmployeeList from "./features/Employee/EmployeeList";
 import NewEmployeeForm from "./features/Employee/NewEmployeeForm";
+import { EmployeeProvider } from "./contexts/EmployeeContext";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <EmployeeProvider>
+      <RouterProvider router={router} />
+    </EmployeeProvider>
+  );
 }
 
 export default App;
