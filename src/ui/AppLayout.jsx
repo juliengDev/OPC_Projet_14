@@ -8,7 +8,7 @@ function AppLayout() {
   return (
     <>
       {isLoading && <Loader />}
-      <main className="flex flex-col items-center">
+      <main className="font-main flex flex-col items-center text-xl">
         <Outlet />
       </main>
     </>
