@@ -1,5 +1,5 @@
 // ContextAPI + reducer pattern
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useMemo, useReducer } from "react";
 
 const EmployeeContext = createContext();
 
@@ -35,15 +35,13 @@ function EmployeeProvider({ children }) {
   const createEmployee = (data) => {
     dispatch({ type: "employee/created", payload: data });
   };
+
+  const value = useMemo(() => {
+    return { employeeList, isLoading, error, createEmployee };
+  }, [employeeList, isLoading, error]);
+
   return (
-    <EmployeeContext.Provider
-      value={{
-        employeeList,
-        isLoading,
-        error,
-        createEmployee,
-      }}
-    >
+    <EmployeeContext.Provider value={value}>
       {children}
     </EmployeeContext.Provider>
   );
