@@ -54,5 +54,5 @@ function useEmployee() {
     throw new Error("CitiesContext was used outside the EmployeeProvider");
   return context;
 }
-
+// eslint-disable-next-line
 export { EmployeeProvider, useEmployee };
