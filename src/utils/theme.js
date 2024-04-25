@@ -33,4 +33,7 @@ export const theme = createTheme({
       contrastText: "#fff",
     },
   },
+  typography: {
+    fontSize: 20,
+  },
 });

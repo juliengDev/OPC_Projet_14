@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom";
+import { useEmployee } from "../../contexts/EmployeeContext";
 import { Container, Typography, Box } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-// import { useEmployee } from "../../contexts/EmployeeContext";
-import employees from "../../mock/employees";
-import columns from "../../mock/columns";
+import Table from "../../Components/table/Table";
+// import employees from "../../mock/employees";
 
 function EmployeeList() {
-  // const { employeeList } = useEmployee();
-  // console.log(employeeList);
+  const { employeeList } = useEmployee();
 
   return (
     <>
@@ -20,39 +18,17 @@ function EmployeeList() {
           color: "primary.main",
         }}
       >
-        <Typography sx={{ m: 4 }} variant="h1">
+        <Typography sx={{ m: 4 }} variant="h2" component="h1">
           Current Employees
         </Typography>
         <Box sx={{ height: 700, width: "100%" }}>
-          <DataGrid
-            rows={employees}
-            columns={columns}
-            ColumnFilter
-            ColumnSelector
-            DensitySelector
-            slots={{ toolbar: GridToolbar }}
-            slotProps={{
-              toolbar: {
-                showQuickFilter: true,
-              },
-            }}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  pageSize: 10,
-                },
-              },
-            }}
-            pageSizeOptions={[10, 25, 50, 100]}
-            checkboxSelection
-            disableRowSelectionOnClick
-          />
+          <Table employees={employeeList} />
         </Box>
       </Container>
       <Box>
         <Link
           to="/"
-          className=" mb-12 mt-8 block text-2xl text-[#1976d2] hover:text-[#1565c0] hover:underline"
+          className=" mb-12 mt-8 block text-3xl  text-[#1976d2] hover:text-[#1565c0] hover:underline"
         >
           Home
         </Link>

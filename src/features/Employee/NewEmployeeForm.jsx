@@ -1,15 +1,15 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useEmployee } from "../../contexts/EmployeeContext";
+import Dropdown from "../../Components/dropdown/Dropdown";
+import DateSelector from "../../Components/dateSelector/DateSelector";
+import { Modal } from "juliengilbertdev-modal";
+import { Container, TextField, Typography, Button, Box } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { formatDate } from "../../utils/helper";
-import Dropdown from "../../Components/dropdown/Dropdown";
 import usStates from "../../mock/states";
 import department from "../../mock/department";
-import { Container, TextField, Typography, Button, Box } from "@mui/material";
-import { useEmployee } from "../../contexts/EmployeeContext";
-import { useState } from "react";
-import DateSelector from "../../Components/datePicker/DateSelector";
-import { Modal } from "juliengilbertdev-modal";
 
 const initialEmployeeState = {
   birthDate: null,
@@ -39,6 +39,7 @@ function NewEmployeeForm() {
       ...employee,
       birthDate: formatDate(employee.birthDate),
       startDate: formatDate(employee.startDate),
+      id: crypto.randomUUID(),
     };
     createEmployee(newEmployee);
     setEmployee(initialEmployeeState);
@@ -57,14 +58,18 @@ function NewEmployeeForm() {
             color: "primary.main",
           }}
         >
-          <Typography variant="h1">HRnet</Typography>
+          <Typography component="h1" variant="h2">
+            HRnet
+          </Typography>
           <Link
             to="/employee-list"
-            className=" mb-12 mt-8 block text-2xl text-[#1976d2] hover:text-[#1565c0] hover:underline"
+            className=" mb-12 mt-8 block text-3xl text-[#1976d2] hover:text-[#1565c0] hover:underline"
           >
             View Current Employees
           </Link>
-          <Typography variant="h2">Create Employee</Typography>
+          <Typography component="h2" variant="h3">
+            Create Employee
+          </Typography>
           <form
             onSubmit={handleSubmit}
             className="mt-12 flex flex-col items-center"
