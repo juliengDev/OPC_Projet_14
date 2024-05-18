@@ -7,7 +7,7 @@ import { Modal } from "juliengilbertdev-modal";
 import { Container, TextField, Typography, Button, Box } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { formatDate } from "../../utils/helper";
+import { formatDate, formatStatecode } from "../../utils/helper";
 import usStates from "../../mock/states";
 import department from "../../mock/department";
 
@@ -40,6 +40,7 @@ function NewEmployeeForm() {
       birthDate: formatDate(employee.birthDate),
       startDate: formatDate(employee.startDate),
       id: crypto.randomUUID(),
+      state: formatStatecode(employee.state),
     };
     createEmployee(newEmployee);
     setEmployee(initialEmployeeState);

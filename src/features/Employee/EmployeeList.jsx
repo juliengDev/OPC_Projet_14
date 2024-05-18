@@ -22,6 +22,7 @@ function EmployeeList() {
           Current Employees
         </Typography>
         <Box sx={{ height: 700, width: "100%" }}>
+          {/* <Table employees={employees} /> */}
           <Table employees={employeeList} />
         </Box>
       </Container>

@@ -13,16 +13,6 @@ const columns = [
     editable: false,
   },
   {
-    field: "birthDate",
-    headerName: "Birth Date",
-    type: "date",
-    width: 100,
-    editable: false,
-    valueFormatter: (params) => {
-      return params.value;
-    },
-  },
-  {
     field: "startDate",
     headerName: "Start Date",
     sortable: false,
@@ -33,9 +23,25 @@ const columns = [
     },
   },
   {
+    field: "department",
+    headerName: "Department",
+    width: 150,
+    editable: false,
+  },
+  {
+    field: "birthDate",
+    headerName: "Date of Birth",
+    type: "date",
+    width: 100,
+    editable: false,
+    valueFormatter: (params) => {
+      return params.value;
+    },
+  },
+  {
     field: "street",
     headerName: "Street",
-    width: 150,
+    width: 200,
     editable: false,
   },
   {
@@ -45,8 +51,14 @@ const columns = [
     editable: false,
   },
   {
-    field: "department",
-    headerName: "Department",
+    field: "state",
+    headerName: "State",
+    width: 100,
+    editable: false,
+  },
+  {
+    field: "zipCode",
+    headerName: "Zip Code",
     width: 100,
     editable: false,
   },
