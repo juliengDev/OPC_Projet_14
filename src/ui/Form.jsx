@@ -112,7 +112,7 @@ function Form({ isOpen, setIsOpen }) {
       />
 
       <fieldset className="mb-12 min-w-[240px] rounded-md border border-gray-300 px-4 py-8 pb-12">
-        <legend className="text-lg">Address</legend>
+        <legend className="text-lg ">Address</legend>
         <Box>
           <TextField
             required

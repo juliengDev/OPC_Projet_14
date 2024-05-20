@@ -18,7 +18,6 @@ function NewEmployeeForm() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            color: "primary.main",
           }}
         >
           <Typography component="h1" variant="h2">
@@ -26,11 +25,11 @@ function NewEmployeeForm() {
           </Typography>
           <Link
             to="/employee-list"
-            className=" mb-12 mt-8 block text-3xl text-[#1976d2] hover:text-[#1565c0] hover:underline"
+            className=" mb-12 mt-8 block text-3xl  hover:text-blue-700 hover:underline"
           >
             View Current Employees
           </Link>
-          <Typography component="h2" variant="h3">
+          <Typography component="h2" variant="h4">
             Create Employee
           </Typography>
           <Form isOpen={isOpen} setIsOpen={setIsOpen} />

@@ -15,7 +15,6 @@ function EmployeeList() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          color: "primary.main",
         }}
       >
         <Typography sx={{ m: 4 }} variant="h2" component="h1">
@@ -29,7 +28,7 @@ function EmployeeList() {
       <Box>
         <Link
           to="/"
-          className=" mb-12 mt-8 block text-3xl  text-[#1976d2] hover:text-[#1565c0] hover:underline"
+          className=" mb-12 mt-8 block text-3xl hover:text-blue-700 hover:underline"
         >
           Home
         </Link>
