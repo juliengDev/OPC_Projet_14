@@ -57,7 +57,7 @@ const columns = [
     editable: false,
   },
   {
-    field: "zipCode",
+    field: "zipcode",
     headerName: "Zip Code",
     width: 100,
     editable: false,

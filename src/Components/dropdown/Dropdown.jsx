@@ -1,20 +1,13 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
-function Dropdown({ label, value, options, handleChange }) {
-  const handleDropdownChange = (event) => {
-    const selectedValue = event.target.value;
-    handleChange(selectedValue);
-  };
-
+function Dropdown({ register, label, options, defaultValue, id }) {
   return (
     <FormControl fullWidth>
-      <InputLabel id={`${label}Label`}>{label}</InputLabel>
+      <InputLabel required>{label}</InputLabel>
       <Select
-        labelId={`${label}Label`}
-        id={label.toLowerCase()}
-        value={value}
-        onChange={handleDropdownChange}
-        label={label}
+        defaultValue={defaultValue}
+        sx={{ width: 1, mt: 2 }}
+        {...register(id)}
       >
         {options.map((option) => (
           <MenuItem key={option} value={option}>

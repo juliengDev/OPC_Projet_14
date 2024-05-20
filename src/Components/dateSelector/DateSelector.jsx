@@ -1,12 +1,15 @@
 import { DatePicker } from "@mui/x-date-pickers";
 
-function DateSelector({ label, value, onChange }) {
+function DateSelector({ field, label }) {
   return (
     <DatePicker
-      sx={{ width: 1, mb: 4 }}
+      sx={{ width: 1, mb: 1 }}
       label={label}
-      value={value}
-      onChange={onChange}
+      value={field.value || null}
+      inputRef={field.ref}
+      onChange={(date) => {
+        field.onChange(date);
+      }}
     />
   );
 }
