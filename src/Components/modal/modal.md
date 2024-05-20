@@ -10,18 +10,6 @@ You can install this component via npm:
 npm install juliengilbertdev-modal
 ```
 
-### Styling
-
-Variable icon font
-Add the variable font stylesheet request to your head tag and the current variable axes configuration to icons using CSS.
-
-```html
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-/>
-```
-
 ## Import the Counter component
 
 ```js

@@ -21,7 +21,7 @@ function EmployeeList() {
         <Typography sx={{ m: 4 }} variant="h2" component="h1">
           Current Employees
         </Typography>
-        <Box sx={{ height: 700, width: "100%" }}>
+        <Box sx={{ height: 500, width: "100%" }}>
           {/* <Table employees={employees} /> */}
           <Table employees={employeeList} />
         </Box>
