@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEmployee } from "../../contexts/EmployeeContext";
 import { Container, Typography, Box } from "@mui/material";
-import Table from "../../components/table/Table";
+import Table from "../../Components/table/Table";
 // import employees from "../../mock/employees";
 
 function EmployeeList() {

@@ -6,8 +6,8 @@ import { TextField, Button, Box } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { addYears, isValid } from "date-fns";
-import Dropdown from "../components/dropdown/Dropdown";
-import DateSelector from "../components/dateSelector/DateSelector";
+import Dropdown from "../Components/dropdown/Dropdown";
+import DateSelector from "../Components/dateSelector/DateSelector";
 import { formatDate, formatStatecode } from "../utils/helper";
 
 const initialEmployeeState = {
