@@ -25,7 +25,7 @@ const columns = [
   {
     field: "department",
     headerName: "Department",
-    width: 150,
+    width: 120,
     editable: false,
   },
   {

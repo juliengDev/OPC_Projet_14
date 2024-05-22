@@ -1,13 +1,12 @@
 import { Controller, useForm } from "react-hook-form";
 import { useEmployee } from "../contexts/EmployeeContext";
-import Dropdown from "../Components/dropdown/Dropdown";
-import DateSelector from "../Components/dateSelector/DateSelector";
-import { TextField, Button, Box } from "@mui/material";
 import usStates from "../mock/states";
 import department from "../mock/department";
+import { TextField, Button, Box } from "@mui/material";
+import { addYears, isValid } from "date-fns";
+import Dropdown from "../Components/dropdown/Dropdown";
+import DateSelector from "../Components/dateSelector/DateSelector";
 import { formatDate, formatStatecode } from "../utils/helper";
-import { useState } from "react";
-import FormError from "./FormError";
 
 const initialEmployeeState = {
   birthDate: null,
@@ -18,31 +17,30 @@ const initialEmployeeState = {
   city: "",
   department: "Sales",
   state: "Alabama",
-  zipCode: "",
+  zipcode: "",
 };
+
 function Form({ isOpen, setIsOpen }) {
-  const [employee, setEmployee] = useState(initialEmployeeState);
   const { createEmployee } = useEmployee();
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-
-  console.log(errors);
+    reset,
+  } = useForm({ defaultValues: initialEmployeeState });
 
   function onSubmit(data) {
     const newEmployee = {
       ...data,
       birthDate: formatDate(data.birthDate),
       startDate: formatDate(data.startDate),
-      id: crypto.randomUUID(),
       state: formatStatecode(data.state),
+      id: crypto.randomUUID(),
     };
     console.log(newEmployee);
     createEmployee(newEmployee);
-    setEmployee(initialEmployeeState);
+    reset(initialEmployeeState);
     setIsOpen(!isOpen);
   }
 
@@ -55,18 +53,22 @@ function Form({ isOpen, setIsOpen }) {
         required
         sx={{ width: 1, mb: 2 }}
         id="firstName"
-        name="firstName"
         label="First Name"
         variant="standard"
         {...register("firstName", {
-          required: "Please put your  firstname",
+          required: "First name is required.",
           minLength: {
-            value: 4,
-            message: "Min length is 4",
+            value: 3,
+            message: "First name must be at least 3 characters long.",
+          },
+          pattern: {
+            value: /^[a-z ,.'-]+$/i,
+            message: "Invalid format",
           },
         })}
+        error={!!errors.firstName}
+        helperText={errors.firstName ? errors.firstName.message : ""}
       />
-      <FormError>{errors.firstName?.message}</FormError>
       <TextField
         required
         sx={{ width: 1, mb: 2 }}
@@ -74,25 +76,43 @@ function Form({ isOpen, setIsOpen }) {
         label="Last Name"
         variant="standard"
         {...register("lastName", {
-          required: "Please put your  lastname",
+          required: "Last name is required.",
           minLength: {
-            value: 4,
-            message: "Min length is 4",
+            value: 3,
+            message: "Last name must be at least 3 characters long.",
+          },
+          pattern: {
+            value: /^[a-z ,.'-]+$/i,
+            message: "Invalid format",
           },
         })}
+        error={!!errors.lastName}
+        helperText={errors.lastName ? errors.lastName.message : ""}
       />
-      <FormError>{errors.lastName?.message}</FormError>
 
       <Controller
         control={control}
         name="birthDate"
-        rules={{ required: "Date of Birth is required" }}
+        rules={{
+          required: "Date of Birth is required.",
+          validate: {
+            validDate: (value) => isValid(new Date(value)) || "Invalid date.",
+            minAge: (value) =>
+              addYears(new Date(value), 18) <= new Date() ||
+              "You must be at least 18 years old.",
+            maxAge: (value) =>
+              addYears(new Date(value), 100) >= new Date() ||
+              "You must be less than 100 years old.",
+          },
+        }}
         render={({ field }) => {
           return (
-            <>
-              <DateSelector label="Date of Birth" field={field} />
-              <FormError>{errors.birthDate?.message}</FormError>
-            </>
+            <DateSelector
+              label="Date of Birth"
+              field={field}
+              error={!!errors.birthDate}
+              helperText={errors.birthDate ? errors.birthDate.message : ""}
+            />
           );
         }}
       />
@@ -100,13 +120,28 @@ function Form({ isOpen, setIsOpen }) {
       <Controller
         control={control}
         name="startDate"
-        rules={{ required: "Starting date is required" }}
+        rules={{
+          required: "Starting date is required",
+          validate: {
+            notPastDate: (value) => {
+              const today = new Date();
+              today.setHours(0, 0, 0, 0);
+              const selectedDate = new Date(value);
+              selectedDate.setHours(0, 0, 0, 0);
+              return (
+                selectedDate >= today || "Starting date cannot be in the past."
+              );
+            },
+          },
+        }}
         render={({ field }) => {
           return (
-            <>
-              <DateSelector label="Start Date" field={field} />
-              <FormError>{errors.startDate?.message}</FormError>
-            </>
+            <DateSelector
+              label="Start Date"
+              field={field}
+              error={!!errors.startDate}
+              helperText={errors.startDate ? errors.startDate.message : ""}
+            />
           );
         }}
       />
@@ -120,9 +155,16 @@ function Form({ isOpen, setIsOpen }) {
             id="street"
             label="Street"
             variant="standard"
-            {...register("street")}
+            {...register("street", {
+              required: "Street name and number is required.",
+              pattern: {
+                value: /^[A-Za-z0-9'.'\-\s,]+$/i,
+                message: "Invalid format",
+              },
+            })}
+            error={!!errors.street}
+            helperText={errors.street ? errors.street.message : ""}
           />
-          <FormError>{errors.street?.message}</FormError>
         </Box>
         <Box>
           <TextField
@@ -131,16 +173,34 @@ function Form({ isOpen, setIsOpen }) {
             id="city"
             label="City"
             variant="standard"
-            {...register("city")}
+            {...register("city", {
+              required: "City name is required.",
+              minLength: {
+                value: 3,
+                message: "City name must be at least 3 characters long.",
+              },
+              pattern: {
+                value: /^[a-z ,.'-]+$/i,
+                message: "Invalid format",
+              },
+            })}
+            error={!!errors.city}
+            helperText={errors.city ? errors.city.message : ""}
           />
         </Box>
         <Box>
-          <Dropdown
-            label="State"
-            id="state"
-            options={usStates}
-            defaultValue={employee.state}
-            register={register}
+          <Controller
+            control={control}
+            name="state"
+            render={({ field }) => (
+              <Dropdown
+                label="State"
+                id="state"
+                options={usStates}
+                value={field.value}
+                onChange={field.onChange}
+              />
+            )}
           />
         </Box>
         <Box>
@@ -150,17 +210,35 @@ function Form({ isOpen, setIsOpen }) {
             id="zipcode"
             label="Zip Code"
             variant="standard"
-            {...register("zipcode")}
+            {...register("zipcode", {
+              required: "Zip Code is required.",
+              minLength: {
+                value: 3,
+                message: "Zip Code must be 4 characters long.",
+              },
+              pattern: {
+                value: /^\d{5}(?:[-\s]\d{4})?$/,
+                message: "Invalid zip code format",
+              },
+            })}
+            error={!!errors.zipcode}
+            helperText={errors.zipcode ? errors.zipcode.message : ""}
           />
         </Box>
       </fieldset>
 
-      <Dropdown
-        label="Department"
-        id="department"
-        options={department}
-        defaultValue={employee.department}
-        register={register}
+      <Controller
+        control={control}
+        name="department"
+        render={({ field }) => (
+          <Dropdown
+            label="Department"
+            id="department"
+            options={department}
+            value={field.value}
+            onChange={field.onChange}
+          />
+        )}
       />
 
       <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>

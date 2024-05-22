@@ -1,14 +1,10 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
-function Dropdown({ register, label, options, defaultValue, id }) {
+function Dropdown({ label, options, value, onChange }) {
   return (
     <FormControl fullWidth>
       <InputLabel required>{label}</InputLabel>
-      <Select
-        defaultValue={defaultValue}
-        sx={{ width: 1, mt: 2 }}
-        {...register(id)}
-      >
+      <Select value={value} onChange={onChange} sx={{ width: 1, mt: 2 }}>
         {options.map((option) => (
           <MenuItem key={option} value={option}>
             {option}
