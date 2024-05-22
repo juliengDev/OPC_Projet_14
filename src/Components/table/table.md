@@ -6,7 +6,7 @@ The `Table` component is a fast and extendable react data table and react data g
 
 To use this component in your project, please follow the official guide right here :
 
-https://mui.com/x/react-data-grid/
+- `DataGrid` : https://mui.com/x/react-data-grid/
 
 ## Usage
 
@@ -40,7 +40,7 @@ The `Table` component accepts the following props:
 
 - `employees` (`Array<object>`, _required_): An array of objects representing the rows of data to display in the table.
 
-### Additional Configuration Props
+### Additional Configuration Props for the DataGrid component inside Table
 
 - `rows` (`Array<object>`, _required_): The data to be rendered in the table.
 - `columns` (`Array<object>`, _required_): The configuration of columns for the table.

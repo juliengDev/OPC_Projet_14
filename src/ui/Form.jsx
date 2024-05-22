@@ -3,9 +3,11 @@ import { useEmployee } from "../contexts/EmployeeContext";
 import usStates from "../mock/states";
 import department from "../mock/department";
 import { TextField, Button, Box } from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { addYears, isValid } from "date-fns";
-import Dropdown from "../Components/dropdown/Dropdown";
-import DateSelector from "../Components/dateSelector/DateSelector";
+import Dropdown from "../components/dropdown/Dropdown";
+import DateSelector from "../components/dateSelector/DateSelector";
 import { formatDate, formatStatecode } from "../utils/helper";
 
 const initialEmployeeState = {
@@ -36,12 +38,12 @@ function Form({ isOpen, setIsOpen }) {
       birthDate: formatDate(data.birthDate),
       startDate: formatDate(data.startDate),
       state: formatStatecode(data.state),
-      id: crypto.randomUUID(),
+      id: crypto.randomUUID(), // The DataGrid component from MUI need an id for each object of the table, we use hat trick to create a unique id
     };
     console.log(newEmployee);
-    createEmployee(newEmployee);
-    reset(initialEmployeeState);
-    setIsOpen(!isOpen);
+    createEmployee(newEmployee); // function action creator who dispatch the new employee to the reducer to update the global state
+    reset(initialEmployeeState); // reset all the fields with the initial default state values
+    setIsOpen(!isOpen); // handle the modal
   }
 
   return (
@@ -89,63 +91,64 @@ function Form({ isOpen, setIsOpen }) {
         error={!!errors.lastName}
         helperText={errors.lastName ? errors.lastName.message : ""}
       />
-
-      <Controller
-        control={control}
-        name="birthDate"
-        rules={{
-          required: "Date of Birth is required.",
-          validate: {
-            validDate: (value) => isValid(new Date(value)) || "Invalid date.",
-            minAge: (value) =>
-              addYears(new Date(value), 18) <= new Date() ||
-              "You must be at least 18 years old.",
-            maxAge: (value) =>
-              addYears(new Date(value), 100) >= new Date() ||
-              "You must be less than 100 years old.",
-          },
-        }}
-        render={({ field }) => {
-          return (
-            <DateSelector
-              label="Date of Birth"
-              field={field}
-              error={!!errors.birthDate}
-              helperText={errors.birthDate ? errors.birthDate.message : ""}
-            />
-          );
-        }}
-      />
-
-      <Controller
-        control={control}
-        name="startDate"
-        rules={{
-          required: "Starting date is required",
-          validate: {
-            notPastDate: (value) => {
-              const today = new Date();
-              today.setHours(0, 0, 0, 0);
-              const selectedDate = new Date(value);
-              selectedDate.setHours(0, 0, 0, 0);
-              return (
-                selectedDate >= today || "Starting date cannot be in the past."
-              );
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <Controller
+          control={control}
+          name="birthDate"
+          rules={{
+            required: "Date of Birth is required.",
+            validate: {
+              validDate: (value) => isValid(new Date(value)) || "Invalid date.",
+              minAge: (value) =>
+                addYears(new Date(value), 18) <= new Date() ||
+                "You must be at least 18 years old.",
+              maxAge: (value) =>
+                addYears(new Date(value), 100) >= new Date() ||
+                "You must be less than 100 years old.",
             },
-          },
-        }}
-        render={({ field }) => {
-          return (
-            <DateSelector
-              label="Start Date"
-              field={field}
-              error={!!errors.startDate}
-              helperText={errors.startDate ? errors.startDate.message : ""}
-            />
-          );
-        }}
-      />
+          }}
+          render={({ field }) => {
+            return (
+              <DateSelector
+                label="Date of Birth"
+                field={field}
+                error={!!errors.birthDate}
+                helperText={errors.birthDate ? errors.birthDate.message : ""}
+              />
+            );
+          }}
+        />
 
+        <Controller
+          control={control}
+          name="startDate"
+          rules={{
+            required: "Starting date is required",
+            validate: {
+              notPastDate: (value) => {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const selectedDate = new Date(value);
+                selectedDate.setHours(0, 0, 0, 0);
+                return (
+                  selectedDate >= today ||
+                  "Starting date cannot be in the past."
+                );
+              },
+            },
+          }}
+          render={({ field }) => {
+            return (
+              <DateSelector
+                label="Start Date"
+                field={field}
+                error={!!errors.startDate}
+                helperText={errors.startDate ? errors.startDate.message : ""}
+              />
+            );
+          }}
+        />
+      </LocalizationProvider>
       <fieldset className="mb-12 min-w-[240px] rounded-md border border-gray-300 px-4 py-8 pb-12">
         <legend className="text-lg ">Address</legend>
         <Box>
@@ -157,6 +160,10 @@ function Form({ isOpen, setIsOpen }) {
             variant="standard"
             {...register("street", {
               required: "Street name and number is required.",
+              minLength: {
+                value: 5,
+                message: "Street name must be at least 5 characters long.",
+              },
               pattern: {
                 value: /^[A-Za-z0-9'.'\-\s,]+$/i,
                 message: "Invalid format",
@@ -213,7 +220,7 @@ function Form({ isOpen, setIsOpen }) {
             {...register("zipcode", {
               required: "Zip Code is required.",
               minLength: {
-                value: 3,
+                value: 4,
                 message: "Zip Code must be 4 characters long.",
               },
               pattern: {
