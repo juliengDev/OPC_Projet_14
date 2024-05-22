@@ -40,7 +40,7 @@ The `Table` component accepts the following props:
 
 - `employees` (`Array<object>`, _required_): An array of objects representing the rows of data to display in the table.
 
-### Additional Configuration Props for the DataGrid component inside Table
+### Additional Configuration Props for the DataGrid component
 
 - `rows` (`Array<object>`, _required_): The data to be rendered in the table.
 - `columns` (`Array<object>`, _required_): The configuration of columns for the table.
