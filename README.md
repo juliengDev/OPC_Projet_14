@@ -56,6 +56,7 @@ Nouvelle version : [lien](https://drive.google.com/file/d/1tTjYMrhYDKuKBqTTLYtHo
 - [React Vite Toolkit](https://vitejs.dev/) : Developpement de l'application React
 - [React Router Dom](https://reactrouter.com/) : Bibliothèque de routage pour les applications React
 - [MUI](https://mui.com/) : Collection de composants React réutilisables et personnalisables basés sur Material-UI
+- [React Hook Form](https://react-hook-form.com/) : Gestion des formulaires dans React en fournissant une approche basée sur les hooks pour la collecte et la validation des données du formulaire.
 - [Tailwind](https://tailwindcss.com/) : Bibliothèque de styles utilitaire
 - [Context API + Reducer pattern](https://fr.legacy.reactjs.org/docs/context.html) : Gestion du state UI global
 - [ESLint](https://eslint.org/) : Detection et correction des erreurs de syntaxe
