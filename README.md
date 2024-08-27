@@ -4,7 +4,7 @@
   <img src="https://i.imgur.com/5AgGLL9m.png" alt="Image">
 </p>
 
-## Application Bancaire Web avec authentification des utilisateurs
+## Migration d'une librairie jQuery vers React
 
 ## 📝 Description
 

@@ -22,7 +22,7 @@ function EmployeeList() {
         </Typography>
         <Box sx={{ height: 500, width: "100%" }}>
           {/* MOCK  DATA */}
-          {/* <Table employees={employees} />  */}
+          {/* <Table employees={employees} /> */}
           {/* CONTEXT API DATA */}
           <Table employees={employeeList} />
         </Box>
