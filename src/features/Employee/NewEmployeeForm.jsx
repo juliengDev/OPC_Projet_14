@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 import { Modal } from "juliengilbertdev-modal";
 import Form from "../../ui/Form";
 
@@ -11,24 +11,22 @@ function NewEmployeeForm() {
     <>
       <Container
         sx={{
-          mt: 2,
+          mt: 4,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h2">
+        {/* <Typography component="h1" variant="h2" className="text-lg font-extrabold text-gray-800">
           HRnet
-        </Typography>
+        </Typography> */}
         <Link
           to="/employee-list"
-          className=" mb-12 mt-8 block text-3xl  hover:text-blue-700 hover:underline"
+         className=" mt-8 block text-center text-white bg-blue-600 hover:bg-blue-700 rounded-lg py-3 px-6 shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105"
         >
           View Current Employees
         </Link>
-        <Typography component="h2" variant="h4">
-          Create Employee
-        </Typography>
+        
 
         <Form isOpen={isOpen} setIsOpen={setIsOpen} />
       </Container>

@@ -2,7 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useEmployee } from "../contexts/EmployeeContext";
 import usStates from "../mock/states";
 import department from "../mock/department";
-import { TextField, Button, Box } from "@mui/material";
+import { TextField, Button, Box, Typography } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { addYears, isValid } from "date-fns";
@@ -49,8 +49,13 @@ function Form({ isOpen, setIsOpen }) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="mt-12 flex flex-col items-center"
+      className="bg-white shadow-lg rounded-2xl p-8 m-12 flex  flex-col gap-24 justify-center"
     >
+      <Typography component="h2" variant="h4"  className=" text-center text-3xl font-semibold text-gray-800">
+          Create Employee
+      </Typography>
+      <div className="form__container flex gap-32">
+      <section className=" flex flex-col gap-10 w-1/2"> 
       <TextField
         required
         sx={{ width: 1, mb: 2 }}
@@ -92,7 +97,7 @@ function Form({ isOpen, setIsOpen }) {
         helperText={errors.lastName ? errors.lastName.message : ""}
       />
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Controller
+        <Controller          
           control={control}
           name="birthDate"
           rules={{
@@ -110,6 +115,7 @@ function Form({ isOpen, setIsOpen }) {
           render={({ field }) => {
             return (
               <DateSelector
+                
                 label="Date of Birth"
                 field={field}
                 error={!!errors.birthDate}
@@ -149,6 +155,8 @@ function Form({ isOpen, setIsOpen }) {
           }}
         />
       </LocalizationProvider>
+      </section>
+      <section className="w-1/2"> 
       <fieldset className="mb-12 min-w-[240px] rounded-md border border-gray-300 px-4 py-8 pb-12">
         <legend className="text-lg ">Address</legend>
         <Box>
@@ -248,12 +256,15 @@ function Form({ isOpen, setIsOpen }) {
         )}
       />
 
-      <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-        <Button variant="contained" type="submit">
+      </section>
+      </div>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Button variant="contained" type="submit" size="large">
           Save
         </Button>
       </Box>
     </form>
+    
   );
 }
 

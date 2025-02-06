@@ -3,7 +3,7 @@ import { DatePicker } from "@mui/x-date-pickers";
 function DateSelector({ field, label, error, helperText }) {
   return (
     <DatePicker
-      sx={{ width: 1, m: 2 }}
+      sx={{ width: 1, mb:2}}
       label={label}
       value={field.value || null}
       inputRef={field.ref}
